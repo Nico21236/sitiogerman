@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados de búsqueda</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <!-- Botón flotante WhatsApp -->
+  <div id="helpBubble" class="help-bubble">
+    <img src="img/wspp.png" alt="Ayuda WhatsApp">
+  </div>
+
+  <!-- Menú de ayuda oculto -->
+  <div id="helpMenu" class="help-menu">
+    <h4>¿Necesitas ayuda?</h4>
+    <ul class="faq">
+      <li>
+        <button class="faq-question">📦 Estado de mi pedido</button>
+        <div class="faq-answer">Puedes revisar tu pedido ingresando a tu cuenta.</div>
+      </li>
+      <li>
+        <button class="faq-question">🚚 Envíos</button>
+        <div class="faq-answer">Hacemos envíos a todo Chile con Starken.</div>
+      </li>
+      <li>
+        <button class="faq-question">💳 Métodos de pago</button>
+        <div class="faq-answer">Aceptamos tarjetas de débito, crédito y transferencias.</div>
+      </li>
+    </ul>
+    <a href="https://wa.me/56912345678" target="_blank" class="support-btn">💬 Hablar por WhatsApp</a>
+  </div>
+
+  <header>
+    <h1>Resultados de búsqueda</h1>
+  </header>
+
+  <main>
+    <h2 id="search-title"></h2>
+    <div class="productos" id="resultados-container"></div>
+  </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q") ? params.get("q").toLowerCase() : "";
+
+    document.getElementById("search-title").textContent =
+      query ? `Resultados para: "${query}"` : "No se ingresó búsqueda";
+
+    const productos = [
+      // PLAYSTATION
+      { nombre: "Playstation 4 Slim", precio: 299990, imagen: "img/ps4.png" },
+      { nombre: "Control PS4", precio: 45990, imagen: "img/controlps4.png" },
+      { nombre: "Grand Theft Auto V (PS4)", precio: 25000, imagen: "img/gta5ps4.webp" },
+      { nombre: "Watch Dogs (PS4)", precio: 35000, imagen: "img/Watchdogs.webp" },
+      { nombre: "Playstation 5", precio: 569990, imagen: "img/Ps5.avif" },
+
+      // XBOX
+      { nombre: "Xbox Series X", precio: 589999, imagen: "img/Xbox serie X White.webp" },
+      { nombre: "Far Cry 5 (Xbox Series X)", precio: 40000, imagen: "img/farcry5.jpg" },
+
+      // NINTENDO
+      { nombre: "Nintendo Switch", precio: 414990, imagen: "img/Nintendo Switch1.jfif" },
+      { nombre: "Nintendo 3DS", precio: 220000, imagen: "img/nintendo3ds.avif" },
+      { nombre: "Mario Kart 8 Deluxe", precio: 60000, imagen: "img/mariokart8.webp" },
+      { nombre: "Mortal Kombat 1 (Nintendo Switch)", precio: 39000, imagen: "img/mortalkombat1.webp" },
+      { nombre: "Mortal Kombat 11 Ultimate (Nintendo Switch)", precio: 60000, imagen: "img/mortalkombat11.jfif" }
+    ];
+
+    const contenedor = document.getElementById("resultados-container");
+    const resultados = productos.filter(p => p.nombre.toLowerCase().includes(query));
+
+    if (resultados.length > 0) {
+      resultados.forEach(p => {
+        const div = document.createElement("div");
+        div.classList.add("producto");
+        div.innerHTML = `
+          <a href="producto.html?nombre=${encodeURIComponent(p.nombre)}&precio=${p.precio}&img=${encodeURIComponent(p.imagen)}">
+            <img src="${p.imagen}" alt="${p.nombre}">
+            <h3>${p.nombre}</h3>
+          </a>
+          <p class="precio">$${p.precio.toLocaleString("es-CL")}</p>
+          <button class="btn" data-precio="${p.precio}">Agregar al carrito</button>
+        `;
+        contenedor.appendChild(div);
+      });
+    } else {
+      contenedor.innerHTML = `<p>No se encontraron productos para "${query}"</p>`;
+    }
+  </script>
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+
+      <div class="footer-links">
+        <a href="condiciones.html">Condiciones de Venta</a>
+      </div>
+
+      <div class="footer-partners">
+        <span>Starken</span>
+        <span>Webpay</span>
+      </div>
+
+      <p class="footer-copy">© 2025 A Jugar. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

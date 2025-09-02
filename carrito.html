@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Carrito - A JUGAR</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+
+  <!-- Burbuja de ayuda -->
+  <div class="help-bubble" id="helpBubble">
+    <img src="img/wspp.png" alt="Ayuda" />
+  </div>
+
+  <!-- Menú desplegable ayuda -->
+  <div class="help-menu" id="helpMenu">
+    <h4>¿Necesitas ayuda?</h4>
+    <ul class="faq">
+      <li>
+        <button class="faq-question">¿Cómo comprar?</button>
+        <p class="faq-answer">Selecciona un producto y haz clic en "Agregar al carrito".</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Qué métodos de pago aceptan?</button>
+        <p class="faq-answer">Aceptamos tarjetas, transferencias y efectivo.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Cuánto tarda el envío?</button>
+        <p class="faq-answer">Entre 2 a 5 días hábiles según tu región.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Puedo devolver un producto?</button>
+        <p class="faq-answer">Sí, dentro de 7 días hábiles con boleta.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Tienen garantía?</button>
+        <p class="faq-answer">Sí, 6 meses de garantía por fallas de fábrica.</p>
+      </li>
+    </ul>
+    <a href="https://wa.me/56912345678" target="_blank" class="support-btn">📞 Necesito soporte técnico</a>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <!-- Barra superior -->
+    <div class="top-info">
+      <div class="left">
+        <span>Síguenos en Redes Sociales:</span>
+        <a href="#"><img src="img/Facebok1.png" alt="Facebook" class="social-icon"></a>
+        <a href="#"><img src="img/Instagram1.svg" alt="Instagram" class="social-icon"></a>
+      </div>
+      <div class="center">📦 Envíos a todo Chile</div>
+      <div class="right">
+        <a href="#"><span>👤 Mi Cuenta</span></a>
+        <a href="#"><span>📄 Condiciones de Venta</span></a>
+      </div>
+    </div>
+    <!-- Barra principal -->
+    <div class="main-bar">
+      <div class="search-bar">
+        <input id="searchInput" type="text" placeholder="Buscar productos...">
+        <button id="searchBtn" type="button">🔍</button>
+      </div>
+      <div class="logo">
+        🎮 <a href="index.html">A JUGAR</a>
+      </div>
+      <div id="cart-icon" class="cart">
+        🛒 <span id="cart-count">0</span>
+      </div>
+    </div>
+      <button class="hamburger" onclick="document.querySelector('.menu').classList.toggle('show')">
+    ☰
+    </button>
+    <!-- NAV -->
+    <nav class="main-nav">
+      <ul class="menu">
+        <li class="dropdown">
+          <a href="#">PLAYSTATION</a>
+          <ul class="submenu">
+            <li><a href="categoria.html?q=ps5">PS5</a></li>
+            <li><a href="categoria.html?q=ps4">PS4</a></li>
+            <li><a href="categoria.html?q=accesorios-ps">Accesorios PS</a></li>
+            <li><a href="categoria.html?q=juegos-ps">Juegos PS</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">XBOX</a>
+          <ul class="submenu">
+            <li><a href="categoria.html?q=xbox-series-x">Xbox Series X</a></li>
+            <li><a href="categoria.html?q=xbox-one">Xbox One</a></li>
+            <li><a href="categoria.html?q=accesorios-xbox">Accesorios Xbox</a></li>
+            <li><a href="categoria.html?q=juegos-xbox">Juegos Xbox</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">NINTENDO</a>
+          <ul class="submenu">
+            <li><a href="categoria.html?q=switch">Switch</a></li>
+            <li><a href="categoria.html?q=3ds">3DS</a></li>
+            <li><a href="categoria.html?q=accesorios-nintendo">Accesorios Nintendo</a></li>
+            <li><a href="categoria.html?q=juegos-nintendo">Juegos Nintendo</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">GEEK</a>
+          <ul class="submenu">
+            <li><a href="categoria.html?q=todo-geek">Todo Geek</a></li>
+            <li><a href="categoria.html?q=figuras-juguetes">Figuras y Juguetes</a></li>
+            <li><a href="categoria.html?q=funko-pop">Funko Pop</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">GAMER</a>
+          <ul class="submenu">
+            <li><a href="categoria.html?q=audifonos-gamer">Audífonos Gamer</a></li>
+            <li><a href="categoria.html?q=controles">Controles</a></li>
+            <li><a href="categoria.html?q=discos-duros">Discos Duros y Almacenamiento</a></li>
+            <li><a href="categoria.html?q=mouse-gamer">Mouse Gamer</a></li>
+            <li><a href="categoria.html?q=parlantes-gamer">Parlantes Gamer</a></li>
+            <li><a href="categoria.html?q=sillas-gamer">Sillas Gamer</a></li>
+            <li><a href="categoria.html?q=teclados-gamer">Teclados Gamer</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">ROPA</a>
+          <ul class="submenu">
+            <li><a href="categoria.html?q=poleras">Poleras</a></li>
+            <li><a href="categoria.html?q=polerones">Polerones</a></li>
+            <li><a href="categoria.html?q=accesorios-ropa">Accesorios</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="carrito-contenedor">
+    <h2>Mi Carrito</h2>
+    <div class="carrito-grid">
+      
+      <!-- TABLA PRODUCTOS -->
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="cart-page-items">
+          <!-- Productos dinámicos -->
+        </tbody>
+      </table>
+
+      <!-- TOTAL DEL CARRITO -->
+      <div class="cart-totals">
+        <h3>Total del carrito</h3>
+        <p id="cart-page-subtotal">Subtotal: $0</p>
+        <label><input type="radio" name="envio" checked> Envío Puerto Montt: <b>$2.990</b></label><br>
+        <label><input type="radio" name="envio"> Retiro en tienda</label>
+        <p>Envíos a <b>Puerto Montt</b></p>
+        <h3 id="cart-page-total">Total: $0</h3>
+        <button id="btnPagar" class="btn-checkout" type="button">💳 Proceder al pago</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- MINI-CARRITO -->
+  <div id="mini-cart" class="mini-cart">
+    <h3>Tu carrito</h3>
+    <div id="cart-items" class="cart-items"></div>
+    <p id="cart-subtotal">Subtotal: $0</p>
+
+    <div class="mini-cart-buttons">
+      <button class="btn-cart" type="button">🛒 Ir al carrito</button>
+      <button class="btn-checkout" type="button">💳 Ir a pagar</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+
+      <div class="footer-links">
+        <a href="condiciones.html">Condiciones de Venta</a>
+      </div>
+
+      <div class="footer-partners">
+        <span>Starken</span>
+        <span>Webpay</span>
+      </div>
+
+      <p class="footer-copy">© 2025 A Jugar. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

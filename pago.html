@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalizar Compra - A JUGAR</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+  <style>
+    .checkout-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.1);
+    }
+    .checkout-container h2 { text-align: center; margin-bottom: 20px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { font-weight: bold; display: block; margin-bottom: 5px; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 6px rgba(40,167,69,.3);
+      outline: none;
+    }
+    .payment-methods { margin: 20px 0; }
+    .payment-methods h3 { text-align: center; margin-bottom: 15px; }
+    .payment-option { display: flex; align-items: center; margin: 8px 0; gap: 8px; }
+
+    .btn-confirm {
+      width: 100%; padding: 14px; background: #28a745; color: #fff; border: none;
+      border-radius: 6px; font-size: 16px; font-weight: bold; cursor: not-allowed;
+      opacity: 0.6; transition: 0.3s;
+    }
+    .btn-confirm.enabled { cursor: pointer; opacity: 1; }
+
+    /* Modal centrado */
+    .modal {
+      position: fixed; inset: 0; display: flex; justify-content: center; align-items: center;
+      background: rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity .4s ease; z-index: 2000;
+    }
+    .modal.show { opacity: 1; pointer-events: auto; }
+    .modal-content {
+      background: #fff; padding: 40px 50px; border-radius: 12px; text-align: center;
+      font-size: 22px; font-weight: bold; color: #28a745; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: zoomIn .4s ease;
+    }
+    @keyframes zoomIn { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* Bloque transferencia */
+    #transferencia-info {
+      display: none;
+      margin-top: 15px;
+      padding: 18px;
+      border: 1px solid #e6e6e6;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+    #transferencia-info h4 {
+      margin-bottom: 10px;
+      color: green;
+      text-align: center;
+    }
+    #transferencia-info .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+    }
+    #transferencia-info p { margin: 5px 0; }
+    #transferencia-info .cta {
+      margin-top: 12px;
+      display: flex; justify-content: center;
+    }
+    #transferencia-info .cta button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    #transferencia-info .cta button:hover { background: #218838; }
+    #transferencia-info .resumen {
+      margin-top: 10px; font-size: 14px; color: #555; text-align: center;
+    }
+  </style>
+</head>
+<script>
+  // Recuperar datos del carrito
+  const datos = JSON.parse(localStorage.getItem("carrito"));
+
+  if (datos) {
+    // Mostrar el total en la página de pago
+    const checkoutBox = document.querySelector(".checkout-container");
+
+    // Agregar resumen arriba del formulario
+    const resumen = document.createElement("div");
+    resumen.style.marginBottom = "20px";
+    resumen.innerHTML = `
+      <h3>Resumen de Compra</h3>
+      <p><b>Subtotal:</b> $${datos.subtotal.toLocaleString()}</p>
+      <p><b>Envío:</b> $${datos.envio.toLocaleString()}</p>
+      <p><b>Total a pagar:</b> <span style="color:green;font-weight:bold;">$${datos.total.toLocaleString()}</span></p>
+    `;
+    checkoutBox.prepend(resumen);
+
+    // campo oculto
+    const inputTotal = document.createElement("input");
+    inputTotal.type = "hidden";
+    inputTotal.name = "total";
+    inputTotal.value = datos.total;
+    document.getElementById("checkout-form").appendChild(inputTotal);
+  }
+</script>
+<body>
+
+  <!-- Burbuja de ayuda -->
+  <div class="help-bubble" id="helpBubble">
+    <img src="img/wspp.png" alt="Ayuda" />
+  </div>
+
+  <!-- Menú desplegable ayuda -->
+  <div class="help-menu" id="helpMenu">
+    <h4>¿Necesitas ayuda?</h4>
+    <ul class="faq">
+      <li>
+        <button class="faq-question">¿Cómo comprar?</button>
+        <p class="faq-answer">Selecciona un producto y haz clic en "Agregar al carrito".</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Qué métodos de pago aceptan?</button>
+        <p class="faq-answer">Aceptamos tarjetas, transferencias y efectivo.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Cuánto tarda el envío?</button>
+        <p class="faq-answer">Entre 2 a 5 días hábiles según tu región.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Puedo devolver un producto?</button>
+        <p class="faq-answer">Sí, dentro de 7 días hábiles con boleta.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Tienen garantía?</button>
+        <p class="faq-answer">Sí, 6 meses de garantía por fallas de fábrica.</p>
+      </li>
+    </ul>
+    <a href="https://wa.me/56912345678" target="_blank" class="support-btn">📞 Necesito soporte técnico</a>
+  </div>
+
+  <!-- HEADER COMPLETO -->
+  <header>
+    <!-- Barra superior -->
+    <div class="top-info">
+      <div class="left">
+        <span>Síguenos en Redes Sociales:</span>
+        <a href="#"><img src="img/Facebok1.png" alt="Facebook" class="social-icon"></a>
+        <a href="#"><img src="img/Instagram1.svg" alt="Instagram" class="social-icon"></a>
+      </div>
+      <div class="center">📦 Envíos a todo Chile</div>
+      <div class="right">
+        <a href="#"><span>👤 Mi Cuenta</span></a>
+        <a href="#"><span>📄 Condiciones de Venta</span></a>
+      </div>
+    </div>
+
+    <!-- Barra principal -->
+    <div class="main-bar">
+      <div class="search-bar">
+        <input id="searchInput" type="text" placeholder="Buscar productos..." />
+        <button id="searchBtn" type="button">🔍</button>
+      </div>
+      <div class="logo">🎮 <a href="index.html">A JUGAR</a></div>
+      <div id="cart-icon" class="cart">🛒 <span id="cart-count">0</span></div>
+    </div>
+      <button class="hamburger" onclick="document.querySelector('.menu').classList.toggle('show')">
+    ☰
+    </button>
+    <!-- NAV -->
+    <nav class="main-nav">
+      <ul class="menu">
+        <li><a href="categoria.html?q=ps5">PLAYSTATION</a></li>
+        <li><a href="categoria.html?q=xbox-series-x">XBOX</a></li>
+        <li><a href="categoria.html?q=switch">NINTENDO</a></li>
+        <li><a href="categoria.html?q=todo-geek">GEEK</a></li>
+        <li><a href="categoria.html?q=audifonos-gamer">GAMER</a></li>
+        <li><a href="categoria.html?q=poleras">ROPA</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Contenedor de resultados de búsqueda -->
+<div id="busqueda-resultados" style="display:none; padding:20px;"></div>
+  <!-- CONTENIDO -->
+  <main>
+    <div class="checkout-container">
+      <h2>Finalizar Compra</h2>
+
+      <form id="checkout-form">
+        <!-- Datos del cliente -->
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" id="nombre" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="telefono" pattern="[0-9]{9,11}" required placeholder="Ej: 987654321" />
+        </div>
+        <div class="form-group">
+          <label>Dirección</label>
+          <input type="text" id="direccion" required />
+        </div>
+
+        <!-- Región y Comuna -->
+        <div class="form-group">
+          <label>Región</label>
+          <select id="region" required>
+            <option value="">Selecciona región</option>
+            <option>Arica y Parinacota</option>
+            <option>Tarapacá</option>
+            <option>Antofagasta</option>
+            <option>Atacama</option>
+            <option>Coquimbo</option>
+            <option>Valparaíso</option>
+            <option>Metropolitana de Santiago</option>
+            <option>Libertador General Bernardo O’Higgins</option>
+            <option>Maule</option>
+            <option>Ñuble</option>
+            <option>Biobío</option>
+            <option>La Araucanía</option>
+            <option>Los Ríos</option>
+            <option>Los Lagos</option>
+            <option>Aysén del General Carlos Ibáñez del Campo</option>
+            <option>Magallanes y de la Antártica Chilena</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Comuna / Ciudad</label>
+          <select id="comuna" required>
+            <option value="">Selecciona una comuna</option>
+          </select>
+        </div>
+
+        <!-- Métodos de pago -->
+        <div class="payment-methods">
+          <h3>Método de Pago</h3>
+          <label class="payment-option">
+            <input type="radio" name="pago" value="tarjeta" required />
+            💳 Tarjeta de Crédito/Débito
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="pago" value="transferencia" />
+            💵 Transferencia Bancaria
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="pago" value="starken" />
+            🚚 Starken
+          </label>
+        </div>
+
+        <!-- Bloque de transferencia -->
+        <div id="transferencia-info">
+          <h4>Datos para Transferencia Bancaria</h4>
+          <div class="grid">
+            <p><b>Banco:</b> Banco Estado</p>
+            <p><b>Tipo de Cuenta:</b> Cuenta Corriente</p>
+            <p><b>N° Cuenta:</b> 123456789</p>
+            <p><b>RUT:</b> 11.111.111-1</p>
+            <p><b>Nombre:</b> A JUGAR SpA</p>
+            <p><b>Email:</b> pagos@ajugar.cl</p>
+          </div>
+          <div class="cta">
+            <button type="button" onclick="copiarDatos()">📋 Copiar Datos</button>
+          </div>
+          <div class="resumen">Una vez realizada la transferencia, envíanos el comprobante por correo para acelerar el despacho. 🙌</div>
+        </div>
+
+        <!-- Botón -->
+        <button type="submit" id="btnConfirmar" class="btn-confirm" disabled>Confirmar y Pagar</button>
+      </form>
+    </div>
+  </main>
+  <!-- Modal de éxito -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      ✅ ¡Su compra ha sido exitosa!
+    </div>
+  </div>
+
+  <!-- JS local de esta página -->
+  <script>
+    const form = document.getElementById("checkout-form");
+    const btnConfirmar = document.getElementById("btnConfirmar");
+    const modal = document.getElementById("modal");
+    const transferenciaInfo = document.getElementById("transferencia-info");
+    const regionSelect = document.getElementById("region");
+    const comunaSelect = document.getElementById("comuna");
+
+    function copiarDatos() {
+      const datos = `
+Banco: Banco Estado
+Tipo de Cuenta: Cuenta Corriente
+N° Cuenta: 123456789
+RUT: 11.111.111-1
+Nombre: A JUGAR 
+Email: pagos@ajugar.cl
+      `;
+      navigator.clipboard.writeText(datos).then(() => {
+        alert("✅ Datos copiados al portapapeles.");
+      });
+    }
+
+    // Comunas por región
+    const comunas = {
+      "Arica y Parinacota": ["Arica", "Putre", "Camarones", "General Lagos"],
+      "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña"],
+      "Antofagasta": ["Antofagasta", "Mejillones", "Taltal", "Calama", "San Pedro de Atacama"],
+      "Atacama": ["Copiapó", "Vallenar", "Caldera", "Chañaral"],
+      "Coquimbo": ["La Serena", "Coquimbo", "Ovalle", "Illapel", "Vicuña"],
+      "Valparaíso": ["Valparaíso", "Viña del Mar", "Quilpué", "San Antonio", "Quillota"],
+      "Metropolitana de Santiago": ["Santiago", "Puente Alto", "Maipú", "Las Condes", "Ñuñoa", "La Florida"],
+      "Libertador General Bernardo O’Higgins": ["Rancagua", "San Fernando", "Santa Cruz", "Machalí"],
+      "Maule": ["Talca", "Curicó", "Linares", "Cauquenes"],
+      "Ñuble": ["Chillán", "San Carlos", "Bulnes", "Quirihue"],
+      "Biobío": ["Concepción", "Talcahuano", "Los Ángeles", "Coronel", "Chiguayante"],
+      "La Araucanía": ["Temuco", "Villarrica", "Angol", "Padre Las Casas", "Nueva Imperial"],
+      "Los Ríos": ["Valdivia", "La Unión", "Río Bueno", "Panguipulli"],
+      "Los Lagos": ["Puerto Montt", "Osorno", "Castro", "Ancud", "Llanquihue", "Puerto Varas"],
+      "Aysén del General Carlos Ibáñez del Campo": ["Coyhaique", "Puerto Aysén", "Chile Chico"],
+      "Magallanes y de la Antártica Chilena": ["Punta Arenas", "Puerto Natales", "Porvenir"]
+    };
+
+    function cargarComunas(region) {
+      comunaSelect.innerHTML = '<option value="">Selecciona una comuna</option>';
+      if (comunas[region]) {
+        comunas[region].forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c;
+          opt.textContent = c;
+          comunaSelect.appendChild(opt);
+        });
+      }
+    }
+
+    regionSelect.addEventListener("change", () => {
+      cargarComunas(regionSelect.value);
+    });
+
+    // Validación para habilitar el botón
+    form.addEventListener("input", () => {
+      const ok = form.checkValidity();
+      btnConfirmar.disabled = !ok;
+      btnConfirmar.classList.toggle("enabled", ok);
+    });
+
+    // Mostrar/ocultar bloque de transferencia
+    const radiosPago = form.querySelectorAll('input[name="pago"]');
+    radiosPago.forEach(r => {
+      r.addEventListener("change", () => {
+        if (r.value === "transferencia" && r.checked) {
+          transferenciaInfo.style.display = "block";
+          transferenciaInfo.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else if (r.checked) {
+          transferenciaInfo.style.display = "none";
+        }
+      });
+    });
+
+    // Submit
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const pago = form.querySelector('input[name="pago"]:checked')?.value;
+
+      if (pago === "transferencia") {
+        transferenciaInfo.style.display = "block";
+        transferenciaInfo.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      modal.classList.add("show");
+      setTimeout(() => {
+        modal.classList.remove("show");
+        form.reset();
+        btnConfirmar.disabled = true;
+        btnConfirmar.classList.remove("enabled");
+        transferenciaInfo.style.display = "none";
+        comunaSelect.innerHTML = '<option value="">Selecciona una comuna</option>';
+      }, 3500);
+    });
+  </script>
+
+  <!-- JS global -->
+  <script src="script.js"></script>
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+
+      <div class="footer-links">
+        <a href="condiciones.html">Condiciones de Venta</a>
+      </div>
+
+      <div class="footer-partners">
+        <span>Starken</span>
+        <span>Webpay</span>
+      </div>
+
+      <p class="footer-copy">© 2025 A Jugar. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
