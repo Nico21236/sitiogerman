@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalle del Producto - A JUGAR</title>
+<!-- Font Awesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilos.css">
   <style>
     /* Estilo para centrar detalle producto */
@@ -51,7 +53,7 @@
     .producto-info .precio {
       font-size: 20px;
       font-weight: bold;
-      color: green;
+      color: rgb(97, 98, 92);
       margin: 10px 0 20px;
       text-align: center;
     }
@@ -78,20 +80,20 @@
 
     /* Botón Agregar al carrito */
     .btn-carrito {
-      background: #ff0077;
+      background: #000;
       color: #fff;
     }
     .btn-carrito:hover {
-      background: #6f42c1; /* morado hover como en index */
+      background: #333; /* morado hover como en index */
     }
 
     /* Botón Comprar ahora */
     .btn-comprar {
-      background: #28a745; /* verde normal */
-      color: #fff;
+      background: #FFD700; /* verde normal */
+      color: #111;
     }
     .btn-comprar:hover {
-      background: #1e7e34; /* verde más oscuro */
+      background: #e6c200; /* verde más oscuro */
     }
 
     /* 🔹 Redes sociales */
@@ -114,45 +116,135 @@
   </style>
 </head>
 <body>
+  <!-- Burbuja de ayuda -->
+  <div class="help-bubble" id="helpBubble">
+    <img src="img/wspp.png" alt="Ayuda" />
+  </div>
 
+  <!-- Menú desplegable ayuda -->
+  <div class="help-menu" id="helpMenu">
+    <h4>¿Necesitas ayuda?</h4>
+    <ul class="faq">
+      <li>
+        <button class="faq-question">¿Cómo comprar?</button>
+        <p class="faq-answer">Selecciona un producto y haz clic en "Agregar al carrito".</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Qué métodos de pago aceptan?</button>
+        <p class="faq-answer">Aceptamos tarjetas, transferencias y efectivo.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Cuánto tarda el envío?</button>
+        <p class="faq-answer">Entre 2 a 5 días hábiles según tu región.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Puedo devolver un producto?</button>
+        <p class="faq-answer">Sí, dentro de 7 días hábiles con boleta.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Tienen garantía?</button>
+        <p class="faq-answer">Sí, 6 meses de garantía por fallas de fábrica.</p>
+      </li>
+    </ul>
+    <a href="https://wa.me/+56959207579" target="_blank" class="support-btn">📞 Necesito soporte técnico</a>
+  </div>
   <!-- HEADER (igual que index) -->
   <header>
-    <div class="top-info">
-      <div class="left">
-        <span>Síguenos en Redes Sociales:</span>
-        <a href="https://facebook.com" target="_blank"><img src="img/Facebok1.png" alt="Facebook" class="social-icon"></a>
-        <a href="https://instagram.com" target="_blank"><img src="img/Instagram1.svg" alt="Instagram" class="social-icon"></a>
-      </div>
-      <div class="center">📦 Envíos a todo Chile</div>
-      <div class="right">
-        <a href="#"><span>👤 Mi Cuenta</span></a>
-        <a href="#"><span>📄 Condiciones de Venta</span></a>
-      </div>
-    </div>
+  <div class="main-bar">
+  <!-- Logo -->
+  <div class="logo">
+    <a href="index.html" aria-label="A JUGAR">
+      <img src="img/logositio.jfif" alt="A JUGAR">
+    </a>
+  </div>
 
-    <div class="main-bar">
-      <div class="search-bar">
-        <input id="searchInput" type="text" placeholder="Buscar productos...">
-        <button id="searchBtn" type="button">🔍</button>
-      </div>
-      <div class="logo">🎮 <a href="index.html">A JUGAR</a></div>
-      <div id="cart-icon" class="cart">🛒 <span id="cart-count">0</span></div>
+  <!-- Centro: BUSCADOR + CARRITO (juntos) -->
+  <div class="search-cart-group">
+    <div class="search-bar">x
+      <input id="searchInput" type="text" placeholder="Buscar productos...">
+      <button id="searchBtn" type="button">🔍</button>
     </div>
+    <div id="cart-icon" class="cart">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </div>
+
+  <!-- Derecha: solo redes -->
+  <div class="right-group">
+    <a href="#" target="_blank"><img src="img/Facebok1.png" alt="Facebook" class="social-icon"></a>
+    <a href="#" target="_blank"><img src="img/Instagram1.svg" alt="Instagram" class="social-icon"></a>
+  </div>
+</div>
+
+  <!-- NAV -->
+  <nav class="main-nav">
     <button class="hamburger" onclick="document.querySelector('.menu').classList.toggle('show')">
-    ☰
+      ☰
     </button>
-    <nav class="main-nav">
-      <ul class="menu">
-        <li><a href="categoria.html?q=ps5">PLAYSTATION</a></li>
-        <li><a href="categoria.html?q=xbox-series-x">XBOX</a></li>
-        <li><a href="categoria.html?q=switch">NINTENDO</a></li>
-        <li><a href="categoria.html?q=todo-geek">GEEK</a></li>
-        <li><a href="categoria.html?q=audifonos-gamer">GAMER</a></li>
-        <li><a href="categoria.html?q=poleras">ROPA</a></li>
-      </ul>
-    </nav>
-  </header>
+    <ul class="menu">
+      <li class="dropdown">
+        <a href="#"><i class="fa-solid fa-gamepad"></i> PLAYSTATION <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="categoria.html?q=ps5">PS5</a></li>
+          <li><a href="categoria.html?q=ps4">PS4</a></li>
+          <li><a href="categoria.html?q=accesorios-ps">Accesorios PS</a></li>
+          <li><a href="categoria.html?q=juegos-ps">Juegos PS</a></li>
+        </ul>
+      </li>
 
+      <li class="dropdown">
+        <a href="#"><i class="fa-solid fa-tv"></i> XBOX <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="categoria.html?q=xbox-series-x">Xbox Series X</a></li>
+          <li><a href="categoria.html?q=xbox-one">Xbox One</a></li>
+          <li><a href="categoria.html?q=accesorios-xbox">Accesorios Xbox</a></li>
+          <li><a href="categoria.html?q=juegos-xbox">Juegos Xbox</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#"><i class="fa-solid fa-cube"></i> NINTENDO <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="categoria.html?q=switch">Switch</a></li>
+          <li><a href="categoria.html?q=3ds">3DS</a></li>
+          <li><a href="categoria.html?q=accesorios-nintendo">Accesorios Nintendo</a></li>
+          <li><a href="categoria.html?q=juegos-nintendo">Juegos Nintendo</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#"><i class="fa-solid fa-brain"></i> GEEK <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="categoria.html?q=todo-geek">Todo Geek</a></li>
+          <li><a href="categoria.html?q=figuras-juguetes">Figuras y Juguetes</a></li>
+          <li><a href="categoria.html?q=funko-pop">Funko Pop</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#"><i class="fa-solid fa-bolt"></i> GAMER <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="categoria.html?q=audifonos-gamer">Audífonos Gamer</a></li>
+          <li><a href="categoria.html?q=controles">Controles</a></li>
+          <li><a href="categoria.html?q=discos-duros">Discos Duros</a></li>
+          <li><a href="categoria.html?q=mouse-gamer">Mouse Gamer</a></li>
+          <li><a href="categoria.html?q=parlantes-gamer">Parlantes Gamer</a></li>
+          <li><a href="categoria.html?q=sillas-gamer">Sillas Gamer</a></li>
+          <li><a href="categoria.html?q=teclados-gamer">Teclados Gamer</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#"><i class="fa-solid fa-shirt"></i> ROPA <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="categoria.html?q=poleras">Poleras</a></li>
+          <li><a href="categoria.html?q=polerones">Polerones</a></li>
+          <li><a href="categoria.html?q=accesorios-ropa">Accesorios</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
   <!-- MINI CARRITO -->
   <div id="mini-cart" class="mini-cart">
     <h4>🛒 Tu Carrito</h4>
@@ -166,31 +258,56 @@
   </div>
   <!-- Contenedor de resultados de búsqueda -->
 <div id="busqueda-resultados" style="display:none; padding:20px;"></div>
-  <!-- DETALLE DEL PRODUCTO -->
-  <main>
-    <div class="producto-detalle">
-      <div class="zoom-container">
-        <img id="detalleImagen" src="img/default.png" alt="Producto">
+ <main class="producto-page">
+  <!-- 🔹 Contenedor principal del producto -->
+  <div class="producto-detalle">
+    <!-- Imagen y video -->
+    <div class="zoom-container">
+      <img id="detalleImagen" src="img/default.png" alt="Producto">
+      <div id="video-wrapper" class="video-wrapper"></div>
+    </div>
+
+    <!-- Info -->
+    <div class="producto-info">
+      <h2 id="detalleNombre">Nombre del Producto</h2>
+      <p class="precio" id="detallePrecio">$0</p>
+
+      <div class="botones-producto">
+        <button id="btnAgregar" class="btn-carrito">Agregar al carrito</button>
+        <button id="btnComprar" class="btn-comprar">Comprar ahora</button>
       </div>
-      <div class="producto-info">
-        <h2 id="detalleNombre">Nombre del Producto</h2>
-        <p class="precio" id="detallePrecio">$0</p>
 
-        <!-- 🔹 Botones centrados -->
-        <div class="botones-producto">
-          <button id="btnAgregar" class="btn-carrito">Agregar al carrito</button>
-          <button id="btnComprar" class="btn-comprar">Comprar ahora</button>
-        </div>
-
-        <!-- Redes Sociales -->
-        <div class="redes">
-          <h4>Síguenos:</h4>
-          <a href="https://facebook.com" target="_blank"><img src="img/Facebok1.png" alt="Facebook"></a>
-          <a href="https://instagram.com" target="_blank"><img src="img/Instagram1.svg" alt="Instagram"></a>
-        </div>
+      <!-- Redes -->
+      <div class="redes">
+        <h4>Síguenos:</h4>
+        <a href="#"><img src="img/Facebok1.png" alt="Facebook"></a>
+        <a href="#"><img src="img/Instagram1.svg" alt="Instagram"></a>
       </div>
     </div>
-  </main>
+  </div>
+
+  <!-- 🔹 Bloque lateral con info -->
+  <aside class="producto-sidebar">
+  <div class="sidebar-item">
+    <i class="fa-solid fa-truck-fast"></i>
+    <p>Envíos rápidos a todo Chile</p>
+  </div>
+  <div class="sidebar-item">
+    <i class="fa-solid fa-shield-halved"></i>
+    <p>Compra protegida y segura</p>
+  </div>
+  <div class="sidebar-item">
+    <i class="fa-solid fa-headset"></i>
+    <p>Soporte online personalizado</p>
+  </div>
+  <div class="sidebar-logo">
+  <a href="index.html">
+    <img src="img/logositio.jfif" alt="Logo A JUGAR">
+  </a>
+</div>
+</aside>
+</main>
+
   <script src="script.js"></script>
   <script>
     const zoomContainer = document.querySelector('.zoom-container');
@@ -212,6 +329,131 @@
       });
     }
   </script>
+  <main>
+  <section class="product-detail">
+ <!-- 🔹 Video + Descripción dinámicos -->
+<div class="product-extra">
+  <!-- Video -->
+  <div class="product-video">
+    <h3>Tráiler / Gameplay</h3>
+    <div class="video-container">
+      <iframe 
+        id="productVideo"
+        src=""
+        title="Video del producto"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Descripción -->
+  <div class="product-description">
+    <h3>Descripción del Producto</h3>
+    <div id="productDesc"></div>
+  </div>
+</div>
+<script>
+  // Helper para leer parámetros de la URL
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name) || '';
+  }
+
+  // Normalizamos y detectamos el producto
+  const rawName = decodeURIComponent(getParam('nombre')).trim();
+  const name = rawName.toLowerCase();
+
+  // 📚 Catálogo (agrega o ajusta lo que necesites)
+  // videoId = ID de YouTube (lo que va después de watch?v=)
+  const CATALOG = [
+    {
+      match: n => n.includes('playstation 5') || n.includes('ps5'),
+      videoId: 'RkC0l4iekYo', // PS5 – ejemplo oficial
+      desc: {
+        intro: 'PlayStation 5 es la consola de nueva generación de Sony con un rendimiento ultra rápido, gráficos impactantes y experiencias inmersivas con audio 3D.',
+        bullets: [
+          'CPU/GPU de alto rendimiento y SSD ultrarrápido',
+          'Soporte para juegos en 4K y hasta 120 Hz',
+          'Retrocompatibilidad con gran parte de PS4',
+          'Audio 3D y control DualSense con retroalimentación háptica'
+        ]
+      }
+    },
+    {
+      match: n => n.includes('xbox series x') || n.includes('xbox series'),
+      videoId: '0tUqIHwHDEc', // Xbox Series X – trailer oficial
+      desc: {
+        intro: 'Xbox Series X ofrece potencia de próxima generación con tiempos de carga mínimos, resolución hasta 4K y altas tasas de refresco.',
+        bullets: [
+          'CPU/GPU de última generación con Ray Tracing',
+          'Juegos en 4K a hasta 120 FPS',
+          'Quick Resume para cambiar entre juegos al instante',
+          'Amplia compatibilidad con generaciones anteriores'
+        ]
+      }
+    },
+    {
+      match: n => n.includes('nintendo switch'),
+      videoId: 'tgO8U6reayo', // Nintendo Switch – trailer
+      desc: {
+        intro: 'Nintendo Switch combina la experiencia de consola de sobremesa con la portabilidad de una consola portátil.',
+        bullets: [
+          'Pantalla HD portátil de 6.2"',
+          'Joy-Con desmontables para multijugador',
+          'Modo TV, sobremesa y portátil',
+          'Gran biblioteca de juegos exclusivos'
+        ]
+      }
+    },
+    {
+      match: n => n.includes('watch dogs') && n.includes('ps4'),
+      videoId: 'PuGblCHHm6A', // Watch Dogs (PS4) – ejemplo
+      desc: {
+        intro: 'Watch Dogs en PS4 te pone en la piel de un hacker que controla la ciudad con su smartphone.',
+        bullets: [
+          'Mundo abierto con sigilo y acción',
+          'Hackeo en tiempo real de sistemas urbanos',
+          'Campaña intensa y misiones secundarias',
+          'Optimizado para PlayStation 4'
+        ]
+      }
+    },
+    // ➕ Agrega más productos aquí con su videoId y bullets
+  ];
+
+  // Fallback genérico
+  const DEFAULT_ENTRY = {
+    videoId: 'dQw4w9WgXcQ', // 😀 fallback
+    desc: {
+      intro: 'Producto destacado con excelente relación calidad-precio. Disfruta de una experiencia fluida y confiable.',
+      bullets: [
+        'Diseño moderno y materiales de calidad',
+        'Compatibilidad con los principales accesorios',
+        'Garantía y soporte local',
+        'Listo para usarse desde el primer día'
+      ]
+    }
+  };
+
+  // Busca entrada por nombre
+  const entry = CATALOG.find(e => e.match(name)) || DEFAULT_ENTRY;
+
+  // Pinta el video
+  const iframe = document.getElementById('productVideo');
+  iframe.src = `https://www.youtube.com/embed/${entry.videoId}?rel=0`;
+
+  // Pinta la descripción
+  const descEl = document.getElementById('productDesc');
+  descEl.innerHTML = `
+    <p style="margin-bottom:12px;color:#333">${entry.desc.intro}</p>
+    <ul style="list-style:none;padding:0;margin:0">
+      ${entry.desc.bullets.map(b => `<li style="margin:8px 0;color:#444">✔ ${b}</li>`).join('')}
+    </ul>
+  `;
+</script>
+
   <!-- FOOTER -->
   <footer class="main-footer">
     <div class="footer-content">
@@ -223,14 +465,9 @@
       <div class="footer-links">
         <a href="condiciones.html">Condiciones de Venta</a>
       </div>
-
-      <div class="footer-partners">
-        <span>Starken</span>
-        <span>Webpay</span>
-      </div>
-
       <p class="footer-copy">© 2025 A Jugar. Todos los derechos reservados.</p>
     </div>
   </footer>
 </body>
 </html>
+

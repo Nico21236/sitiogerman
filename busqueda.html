@@ -8,96 +8,129 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <!-- HEADER (idéntico al index) -->
-  <header>
-    <div class="top-info">
-      <div class="left">
-        <span>Síguenos en Redes Sociales:</span>
-        <a href="#"><img src="img/Facebok1.png" alt="Facebook" class="social-icon"></a>
-        <a href="#"><img src="img/Instagram1.svg" alt="Instagram" class="social-icon"></a>
-      </div>
-      <div class="center">📦 Envíos a todo Chile</div>
-      <div class="right">
-        <a href="#"><span>👤 Mi Cuenta</span></a>
-        <a href="condiciones.html"><span>📄 Condiciones de Venta</span></a>
-      </div>
+  <!-- Burbuja de ayuda -->
+  <div class="help-bubble" id="helpBubble">
+    <img src="img/wspp.png" alt="Ayuda" />
+  </div>
+
+  <!-- Menú desplegable ayuda -->
+  <div class="help-menu" id="helpMenu">
+    <h4>¿Necesitas ayuda?</h4>
+    <ul class="faq">
+      <li>
+        <button class="faq-question">¿Cómo comprar?</button>
+        <p class="faq-answer">Selecciona un producto y haz clic en "Agregar al carrito".</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Qué métodos de pago aceptan?</button>
+        <p class="faq-answer">Aceptamos tarjetas, transferencias y efectivo.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Cuánto tarda el envío?</button>
+        <p class="faq-answer">Entre 2 a 5 días hábiles según tu región.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Puedo devolver un producto?</button>
+        <p class="faq-answer">Sí, dentro de 7 días hábiles con boleta.</p>
+      </li>
+      <li>
+        <button class="faq-question">¿Tienen garantía?</button>
+        <p class="faq-answer">Sí, 6 meses de garantía por fallas de fábrica.</p>
+      </li>
+    </ul>
+    <a href="https://wa.me/56959207579" target="_blank" class="support-btn">📞 Necesito soporte técnico</a>
+  </div>
+<header>
+  <div class="main-bar">
+    <!-- Logo -->
+    <div class="logo">
+      <a href="index.html" aria-label="A JUGAR">
+        <img src="img/logositio.jfif" alt="A JUGAR">
+      </a>
     </div>
 
-    <div class="main-bar">
+    <!-- Centro: BUSCADOR + CARRITO -->
+    <div class="search-cart-group">
       <div class="search-bar">
         <input id="searchInput" type="text" placeholder="Buscar productos...">
         <button id="searchBtn" type="button">🔍</button>
-      </div>
-      <div class="logo">
-        🎮 <a href="index.html">A JUGAR</a>
       </div>
       <div id="cart-icon" class="cart">
         🛒 <span id="cart-count">0</span>
       </div>
     </div>
 
-    <button class="hamburger" onclick="document.querySelector('.menu').classList.toggle('show')">☰</button>
+    <!-- Derecha: redes -->
+    <div class="right-group">
+      <a href="#" target="_blank"><img src="img/Facebok1.png" alt="Facebook" class="social-icon"></a>
+      <a href="#" target="_blank"><img src="img/Instagram1.svg" alt="Instagram" class="social-icon"></a>
+    </div>
+  </div>
 
-    <nav class="main-nav">
-      <ul class="menu">
-        <li class="dropdown">
-          <a href="#"><i class="fa-solid fa-gamepad"></i> PLAYSTATION <i class="fa-solid fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a href="categoria.html?q=ps5">PS5</a></li>
-            <li><a href="categoria.html?q=ps4">PS4</a></li>
-            <li><a href="categoria.html?q=accesorios-ps">Accesorios PS</a></li>
-            <li><a href="categoria.html?q=juegos-ps">Juegos PS</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#"><i class="fa-solid fa-tv"></i> XBOX <i class="fa-solid fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a href="categoria.html?q=xbox-series-x">Xbox Series X</a></li>
-            <li><a href="categoria.html?q=xbox-one">Xbox One</a></li>
-            <li><a href="categoria.html?q=accesorios-xbox">Accesorios Xbox</a></li>
-            <li><a href="categoria.html?q=juegos-xbox">Juegos Xbox</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#"><i class="fa-solid fa-cube"></i> NINTENDO <i class="fa-solid fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a href="categoria.html?q=switch">Switch</a></li>
-            <li><a href="categoria.html?q=3ds">3DS</a></li>
-            <li><a href="categoria.html?q=accesorios-nintendo">Accesorios Nintendo</a></li>
-            <li><a href="categoria.html?q=juegos-nintendo">Juegos Nintendo</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#"><i class="fa-solid fa-brain"></i> GEEK <i class="fa-solid fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a href="categoria.html?q=todo-geek">Todo Geek</a></li>
-            <li><a href="categoria.html?q=figuras-juguetes">Figuras y Juguetes</a></li>
-            <li><a href="categoria.html?q=funko-pop">Funko Pop</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#"><i class="fa-solid fa-bolt"></i> GAMER <i class="fa-solid fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a href="categoria.html?q=audifonos-gamer">Audífonos Gamer</a></li>
-            <li><a href="categoria.html?q=controles">Controles</a></li>
-            <li><a href="categoria.html?q=discos-duros">Discos Duros</a></li>
-            <li><a href="categoria.html?q=mouse-gamer">Mouse Gamer</a></li>
-            <li><a href="categoria.html?q=parlantes-gamer">Parlantes Gamer</a></li>
-            <li><a href="categoria.html?q=sillas-gamer">Sillas Gamer</a></li>
-            <li><a href="categoria.html?q=teclados-gamer">Teclados Gamer</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#"><i class="fa-solid fa-shirt"></i> ROPA <i class="fa-solid fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a href="categoria.html?q=poleras">Poleras</a></li>
-            <li><a href="categoria.html?q=polerones">Polerones</a></li>
-            <li><a href="categoria.html?q=accesorios-ropa">Accesorios</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <!-- NAV -->
+  <nav class="main-nav">
+    <button class="hamburger" onclick="document.querySelector('.menu').classList.toggle('show')">
+      ☰
+    </button>
+    <ul class="menu">
+  <li class="dropdown">
+    <a href="#"><i class="fa-solid fa-gamepad"></i> PLAYSTATION <i class="fa-solid fa-chevron-down"></i></a>
+    <ul class="submenu">
+      <li><a href="categoria.html?q=ps5">PS5</a></li>
+      <li><a href="categoria.html?q=ps4">PS4</a></li>
+      <li><a href="categoria.html?q=accesorios-ps">Accesorios PS</a></li>
+      <li><a href="categoria.html?q=juegos-ps">Juegos PS</a></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#"><i class="fa-solid fa-tv"></i> XBOX <i class="fa-solid fa-chevron-down"></i></a>
+    <ul class="submenu">
+      <li><a href="categoria.html?q=xbox-series-x">Xbox Series X</a></li>
+      <li><a href="categoria.html?q=xbox-one">Xbox One</a></li>
+      <li><a href="categoria.html?q=accesorios-xbox">Accesorios Xbox</a></li>
+      <li><a href="categoria.html?q=juegos-xbox">Juegos Xbox</a></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#"><i class="fa-solid fa-cube"></i> NINTENDO <i class="fa-solid fa-chevron-down"></i></a>
+    <ul class="submenu">
+      <li><a href="categoria.html?q=switch">Switch</a></li>
+      <li><a href="categoria.html?q=3ds">3DS</a></li>
+      <li><a href="categoria.html?q=accesorios-nintendo">Accesorios Nintendo</a></li>
+      <li><a href="categoria.html?q=juegos-nintendo">Juegos Nintendo</a></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#"><i class="fa-solid fa-brain"></i> GEEK <i class="fa-solid fa-chevron-down"></i></a>
+    <ul class="submenu">
+      <li><a href="categoria.html?q=todo-geek">Todo Geek</a></li>
+      <li><a href="categoria.html?q=figuras-juguetes">Figuras y Juguetes</a></li>
+      <li><a href="categoria.html?q=funko-pop">Funko Pop</a></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#"><i class="fa-solid fa-bolt"></i> GAMER <i class="fa-solid fa-chevron-down"></i></a>
+    <ul class="submenu">
+      <li><a href="categoria.html?q=audifonos-gamer">Audífonos Gamer</a></li>
+      <li><a href="categoria.html?q=controles">Controles</a></li>
+      <li><a href="categoria.html?q=discos-duros">Discos Duros</a></li>
+      <li><a href="categoria.html?q=mouse-gamer">Mouse Gamer</a></li>
+      <li><a href="categoria.html?q=parlantes-gamer">Parlantes Gamer</a></li>
+      <li><a href="categoria.html?q=sillas-gamer">Sillas Gamer</a></li>
+      <li><a href="categoria.html?q=teclados-gamer">Teclados Gamer</a></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#"><i class="fa-solid fa-shirt"></i> ROPA <i class="fa-solid fa-chevron-down"></i></a>
+    <ul class="submenu">
+      <li><a href="categoria.html?q=poleras">Poleras</a></li>
+      <li><a href="categoria.html?q=polerones">Polerones</a></li>
+      <li><a href="categoria.html?q=accesorios-ropa">Accesorios</a></li>
+    </ul>
+  </li>
+</ul>
+  </nav>
+</header>
 
   <!-- Resultados -->
   <main>
@@ -117,23 +150,22 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="main-footer">
-    <div class="footer-content">
-      <div class="social-icons">
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      </div>
-      <div class="footer-links">
-        <a href="condiciones.html">Condiciones de Venta</a>
-      </div>
-      <div class="footer-partners">
-        <span>Starken</span>
-        <span>Webpay</span>
-      </div>
-      <p class="footer-copy">© 2025 A Jugar. Todos los derechos reservados.</p>
+<footer class="main-footer">
+  <div class="footer-content">
+    <!-- Redes sociales -->
+    <div class="social-icons">
+      <a href="#"><i class="fa-brands fa-facebook"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
     </div>
-  </footer>
 
-  <script src="script.js"></script>
+    <!-- Links -->
+    <div class="footer-links">
+      <a href="condiciones.html">Condiciones de Venta</a>
+    </div>
+    <!-- Copy -->
+    <p class="footer-copy">© 2025 A Jugar. Todos los derechos reservados.</p>
+  </div>
+  </footer>
+    <script src="script.js"></script>
 </body>
 </html>
