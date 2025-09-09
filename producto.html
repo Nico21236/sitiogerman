@@ -355,22 +355,31 @@
   </div>
 </div>
 <script>
-  // Helper para leer parámetros de la URL
+  // 👉 Helper para leer parámetros de la URL
   function getParam(name) {
     const url = new URL(window.location.href);
     return url.searchParams.get(name) || '';
   }
 
-  // Normalizamos y detectamos el producto
-  const rawName = decodeURIComponent(getParam('nombre')).trim();
-  const name = rawName.toLowerCase();
+  // 👉 Obtener parámetros básicos de la URL
+  const nombre = decodeURIComponent(getParam("nombre")).trim();
+  const precio = getParam("precio");
+  const img = getParam("img");
 
-  // 📚 Catálogo (agrega o ajusta lo que necesites)
-  // videoId = ID de YouTube (lo que va después de watch?v=)
+  // 👉 Pintar nombre, precio e imagen
+  document.getElementById("detalleNombre").textContent = nombre || "Producto sin nombre";
+  document.getElementById("detallePrecio").textContent = 
+    precio ? `$${Number(precio).toLocaleString("es-CL")}` : "$0";
+  document.getElementById("detalleImagen").src = img || "img/default.png";
+
+  // 👉 Normalizar nombre para buscar en catálogo
+  const name = nombre.toLowerCase();
+
+  // 📚 Catálogo de videos y descripciones
   const CATALOG = [
     {
       match: n => n.includes('playstation 5') || n.includes('ps5'),
-      videoId: 'RkC0l4iekYo', // PS5 – ejemplo oficial
+      videoId: 'RkC0l4iekYo',
       desc: {
         intro: 'PlayStation 5 es la consola de nueva generación de Sony con un rendimiento ultra rápido, gráficos impactantes y experiencias inmersivas con audio 3D.',
         bullets: [
@@ -383,7 +392,7 @@
     },
     {
       match: n => n.includes('xbox series x') || n.includes('xbox series'),
-      videoId: '0tUqIHwHDEc', // Xbox Series X – trailer oficial
+      videoId: '0tUqIHwHDEc',
       desc: {
         intro: 'Xbox Series X ofrece potencia de próxima generación con tiempos de carga mínimos, resolución hasta 4K y altas tasas de refresco.',
         bullets: [
@@ -396,7 +405,7 @@
     },
     {
       match: n => n.includes('nintendo switch'),
-      videoId: 'tgO8U6reayo', // Nintendo Switch – trailer
+      videoId: 'tgO8U6reayo',
       desc: {
         intro: 'Nintendo Switch combina la experiencia de consola de sobremesa con la portabilidad de una consola portátil.',
         bullets: [
@@ -409,7 +418,7 @@
     },
     {
       match: n => n.includes('watch dogs') && n.includes('ps4'),
-      videoId: 'PuGblCHHm6A', // Watch Dogs (PS4) – ejemplo
+      videoId: 'PuGblCHHm6A',
       desc: {
         intro: 'Watch Dogs en PS4 te pone en la piel de un hacker que controla la ciudad con su smartphone.',
         bullets: [
@@ -419,13 +428,12 @@
           'Optimizado para PlayStation 4'
         ]
       }
-    },
-    // ➕ Agrega más productos aquí con su videoId y bullets
+    }
   ];
 
-  // Fallback genérico
+  // 👉 Fallback si no hay coincidencia
   const DEFAULT_ENTRY = {
-    videoId: 'dQw4w9WgXcQ', // 😀 fallback
+    videoId: 'dQw4w9WgXcQ',
     desc: {
       intro: 'Producto destacado con excelente relación calidad-precio. Disfruta de una experiencia fluida y confiable.',
       bullets: [
@@ -437,14 +445,14 @@
     }
   };
 
-  // Busca entrada por nombre
+  // 👉 Buscar entrada en catálogo
   const entry = CATALOG.find(e => e.match(name)) || DEFAULT_ENTRY;
 
-  // Pinta el video
+  // 👉 Pintar el video
   const iframe = document.getElementById('productVideo');
   iframe.src = `https://www.youtube.com/embed/${entry.videoId}?rel=0`;
 
-  // Pinta la descripción
+  // 👉 Pintar la descripción
   const descEl = document.getElementById('productDesc');
   descEl.innerHTML = `
     <p style="margin-bottom:12px;color:#333">${entry.desc.intro}</p>
@@ -453,6 +461,7 @@
     </ul>
   `;
 </script>
+
 
   <!-- FOOTER -->
   <footer class="main-footer">
